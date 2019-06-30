@@ -28,18 +28,21 @@ const posts = [
     title: '10 Reasons Why I Love Bananas',
     body: 'It might shock you to learn but...',
     published: true,
+    author: '1',
   },
   {
     id: 2,
     title: '7 Reasons Why Plantains Are a Super Food',
     body: 'The relative of the humble banana is...',
     published: false,
+    author: '1',
   },
   {
     id: 3,
     title: 'Frozen Banana Smoothie',
     body: 'A great treat for any hot summer...',
     published: false,
+    author: '2',
   },
 ]
 
@@ -64,6 +67,7 @@ const typeDefs = `
     title: String!
     body: String!
     published: Boolean!
+    author: User!
   }
 `
 
@@ -104,6 +108,11 @@ const resolvers = {
         body: '',
         published: false,
       }
+    },
+  },
+  Post: {
+    author(parent, args, ctx, info) {
+      return users.find(user => user.id === parent.author)
     },
   },
 }
